@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Istoriya</string>
+    <string name="welcome_text">Selamat datang Di istoria</string>
+    <string name="app_description">Istoriya adalah aplikasi untuk saling berbagi cerita menarik dalam sehari hari</string>
+    <string name="name_hint">Enter yours name</string>
+    <string name="email_hint">Enter yours Email</string>
+    <string name="password_hint">Enter yours password</string>
+    <string name="logout_text">Logout</string>
+    <string name="setting_text">Setting</string>
+    <string name="this_is_story_photo">This is story photo</string>
+
+    <string name="camera_x">CameraX</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
+    <string name="image_description_hint">Enter description for yours image</string>
+
+    <string name="error_message_email_taken">Email has been already taken</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+
+    <string name="empty_text">NO DATA</string>
+
+
+</resources>
