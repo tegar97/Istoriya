@@ -9,6 +9,8 @@ import com.tegar.istoriya.data.api.response.StoryDetailResponse
 import com.tegar.istoriya.data.api.response.StoryResponse
 import com.tegar.istoriya.data.api.response.StoryUploadResponse
 import com.tegar.istoriya.data.api.retrofit.ApiService
+import com.tegar.istoriya.data.local.entity.StoryEntity
+import com.tegar.istoriya.data.local.room.StoryDao
 import com.tegar.istoriya.data.pref.UserPreference
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -17,14 +19,26 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 import java.io.File
 
-class StoryRepository private constructor(private  val apiService: ApiService, private val userPreference: UserPreference) {
+class StoryRepository private constructor(private  val apiService: ApiService,private  val storyDao : StoryDao,  private val userPreference: UserPreference) {
 
     fun getListStory() : LiveData<ResultState<StoryResponse>> = liveData{
         emit(ResultState.Loading)
         try {
            val storiesResponse =  apiService.getStories()
+            val storyList = storiesResponse.listStory.map { story ->
+                StoryEntity(
+                    story.id ?: "",
+                    story.photoUrl ?: "",
+                    story.name ?: "",
+                    story.description,
+                    story.lon,
+                    story.lat,
+                    story.createdAt
+                )
+            }
             emit(ResultState.Success(storiesResponse))
-
+            storyDao.clearAll()
+            storyDao.addStory(storyList)
         }catch (e : HttpException){
             e.response()?.errorBody()?.string()?.let { error ->
                 val errorBody = e.response()?.errorBody()?.string()
@@ -63,6 +77,7 @@ class StoryRepository private constructor(private  val apiService: ApiService, p
         try {
             val storyUploadResponse = apiService.uploadImage(multipartBody, requestBody)
             emit(ResultState.Success(storyUploadResponse))
+
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, StoryUploadResponse::class.java)
@@ -75,10 +90,11 @@ class StoryRepository private constructor(private  val apiService: ApiService, p
         private var instance: StoryRepository? = null
         fun getInstance(
             apiService: ApiService,
+            storyDao: StoryDao,
             userPreference: UserPreference,
         ): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService,userPreference)
+                instance ?: StoryRepository(apiService,storyDao,userPreference)
             }.also { instance = it }
     }
 }
