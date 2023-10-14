@@ -1,4 +1,4 @@
-package com.tegar.istoriya
+package com.tegar.istoriya.ui.widgets.latestStoryList
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -9,6 +9,8 @@ import android.os.Build
 import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.core.net.toUri
+import com.tegar.istoriya.BuildConfig
+import com.tegar.istoriya.R
 
 /**
  * Implementation of App Widget functionality.
@@ -24,13 +26,13 @@ class ListStoryWidget : AppWidgetProvider() {
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
-            val intent = Intent(context,StackWidgetService::class.java)
+            val intent = Intent(context, StackWidgetService::class.java)
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
 
-            val views = RemoteViews(context.packageName,R.layout.list_story_widget)
+            val views = RemoteViews(context.packageName, R.layout.list_story_widget)
             views.setRemoteAdapter(R.id.stack_view,intent)
-            views.setEmptyView(R.id.stack_view,R.id.empty_view)
+            views.setEmptyView(R.id.stack_view, R.id.empty_view)
 
             val toastIntent = Intent(context, ListStoryWidget::class.java)
             toastIntent.action = TOAST_ACTION

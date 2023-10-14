@@ -1,4 +1,4 @@
-package com.tegar.istoriya
+package com.tegar.istoriya.ui.widgets.latestStoryList
 
 import android.content.Intent
 import android.widget.RemoteViewsService

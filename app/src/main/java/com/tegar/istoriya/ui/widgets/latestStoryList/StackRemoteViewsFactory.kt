@@ -1,4 +1,4 @@
-package com.tegar.istoriya
+package com.tegar.istoriya.ui.widgets.latestStoryList
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
+import com.tegar.istoriya.R
 import com.tegar.istoriya.data.local.room.StoryDao
 import com.tegar.istoriya.data.local.room.StoryDatabase
 import kotlinx.coroutines.Dispatchers
@@ -19,14 +20,18 @@ internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteVi
 
     private val mWidgetItems = ArrayList<Bitmap>()
     private lateinit var dao : StoryDao
-
+    private lateinit var cursor : StoryDatabase
     override fun onCreate() {
-        dao = StoryDatabase.getInstance(mContext.applicationContext).StoryDao()
+        cursor = StoryDatabase.getInstance(mContext.applicationContext)
+        dao = cursor.StoryDao()
 
 
     }
 
     override fun onDataSetChanged() {
+        if(cursor != null){
+            cursor.close()
+        }
         val tokenIdentifier = Binder.clearCallingIdentity()
         runBlocking (Dispatchers.IO) {
             try {

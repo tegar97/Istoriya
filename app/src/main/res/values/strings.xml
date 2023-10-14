@@ -22,6 +22,15 @@
     <string name="app_widget_description">Widget for see latest  story </string>
 
     <string name="empty_text">NO DATA</string>
+    <string name="email">Enter yours email</string>
+    <string name="btn_login_text">Login</string>
+    <string name="dont_have_account_text">Doesnt have account? Register now</string>
+    <string name="welcome_heading_text">Welcome back fellas</string>
+    <string name="login_illustration_content_description">This is image illustration when people make some content video for story</string>
+    <string name="btn_register_text">"Register "</string>
+    <string name="name">Enter yours name</string>
+    <string name="join_heading_text">Let\'s Join us to make amazing story</string>
+    <string name="loading_text">Loading ...</string>
 
 
 </resources>

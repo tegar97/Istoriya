@@ -10,9 +10,11 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.tegar.istoriya.R
 
-class CostumeInput: AppCompatEditText, View.OnTouchListener {
+class CostumeInput: TextInputEditText, View.OnTouchListener {
 
     private lateinit var clearButtonImage: Drawable
     var isPasswordInput: Boolean = false

@@ -3,6 +3,8 @@ package com.tegar.istoriya.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.activity.viewModels
 import com.tegar.istoriya.data.api.ResultState
@@ -19,6 +21,10 @@ class RegisterActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -27,8 +33,45 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnRegister.setOnClickListener { register() }
+        setButtonStatus()
     }
+    private fun setButtonStatus() {
+        setMyButtonEnable()
+        binding.edtName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+        binding.edtEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+        binding.edtPassword.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                setMyButtonEnable()
+            }
+            override fun afterTextChanged(s: Editable) {
+            }
+        })
+    }
+    private fun setMyButtonEnable() {
+        val email = binding.edtEmail.text?.toString().orEmpty()
+        val password = binding.edtPassword.text?.toString().orEmpty()
+        val name = binding.edtPassword.text?.toString().orEmpty()
 
+        binding.btnRegister.isEnabled = email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty()
+    }
     private fun register() {
         val name = binding.edtName.text.toString()
         val email = binding.edtEmail.text.toString()
