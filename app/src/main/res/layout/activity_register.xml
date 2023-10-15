@@ -33,7 +33,7 @@ android:layout_height="match_parent">
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/isytoria_illus_1" />
+            app:srcCompat="@drawable/isytoria_illus_2" />
 
 
         <TextView
@@ -42,7 +42,7 @@ android:layout_height="match_parent">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textColor="@color/dark_purple"
+            android:textColor="@color/primaryTextColor"
             android:text="@string/join_heading_text"
             android:textSize="20sp"
 
@@ -55,7 +55,7 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:text="@string/name"
             android:layout_marginTop="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_welcome_heading" />
 
@@ -73,7 +73,7 @@ android:layout_height="match_parent">
             app:startIconDrawable="@drawable/baseline_person_24"
             app:layout_constraintTop_toBottomOf="@+id/tv_name">
 
-            <com.tegar.istoriya.views.CostumeInput
+            <com.tegar.istoriya.views.CustomInput
                 android:id="@+id/edt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +88,7 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/email"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout" />
@@ -107,7 +107,7 @@ android:layout_height="match_parent">
             app:startIconDrawable="@drawable/baseline_mail_24"
             app:layout_constraintTop_toBottomOf="@+id/tv_email">
 
-            <com.tegar.istoriya.views.CostumeInput
+            <com.tegar.istoriya.views.CustomInput
                 android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,7 +122,7 @@ android:layout_height="match_parent">
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/password_hint"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout" />
 
@@ -140,7 +140,7 @@ android:layout_height="match_parent">
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_password">
 
-            <com.tegar.istoriya.views.CostumeInput
+            <com.tegar.istoriya.views.CustomInput
                 android:id="@+id/edt_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -160,11 +160,11 @@ android:layout_height="match_parent">
             app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
 
         <TextView
-            android:id="@+id/tv_register"
+            android:id="@+id/tv_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/dont_have_account_text"
+            android:text="Do you have account ? Login now"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_register" />

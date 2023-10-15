@@ -12,11 +12,13 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import com.tegar.istoriya.R
 
 import com.tegar.istoriya.data.api.ResultState
 import com.tegar.istoriya.data.api.response.StoryUploadResponse
 import com.tegar.istoriya.utilities.getImageUri
 import com.tegar.istoriya.databinding.ActivityAddStoryBinding
+import com.tegar.istoriya.utilities.Utils
 import com.tegar.istoriya.utilities.reduceFileImage
 import com.tegar.istoriya.utilities.uriToFile
 import com.tegar.istoriya.viewmodels.AddStoryViewModel
@@ -57,7 +59,7 @@ class AddStoryActivity : AppCompatActivity() {
     private fun setupButtons() {
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.cameraButton.setOnClickListener { startCamera() }
-        binding.uploadButton.setOnClickListener { uploadImage() }
+        binding.btnAdd.setOnClickListener { uploadImage() }
     }
 
     private fun startGallery() {
@@ -95,26 +97,38 @@ class AddStoryActivity : AppCompatActivity() {
     private fun uploadImage() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
-            val description = binding.inputDescription.text.toString()
+            val description = binding.edAddDescription.text.toString()
             addStoryViewModel.addStory(imageFile, description).observe(this) { result ->
                 handleAddStoryResult(result)
             }
-        }
+        } ?:Utils.showToast(this, getString(R.string.empty_image_warning))
     }
 
     private fun handleAddStoryResult(result: ResultState<StoryUploadResponse>) {
         when (result) {
-            is ResultState.Loading -> showLoading(true)
+            is ResultState.Loading -> {
+                showLoading(true)
+                binding.btnAdd.isEnabled = false
+                binding.btnAdd.text = getString(R.string.loading_text)
+                Utils.showLoading(binding.progressIndicator,true)
+
+            }
             is ResultState.Success -> {
                 showToast(result.data.message)
-                showLoading(false)
+                binding.btnAdd.isEnabled = true
+                binding.btnAdd.text = getString(R.string.upload)
+                Utils.showLoading(binding.progressIndicator,false)
                 finish()
             }
             is ResultState.Error -> {
                 showToast(result.error)
-                showLoading(false)
-            }
+                binding.btnAdd.isEnabled = true
+                binding.btnAdd.text = getString(R.string.upload)
+                Utils.showLoading(binding.progressIndicator,false)            }
+
+
         }
+
     }
 
     private fun showLoading(isLoading: Boolean) {

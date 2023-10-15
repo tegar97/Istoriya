@@ -3,10 +3,12 @@ package com.tegar.istoriya.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tegar.istoriya.R
 import com.tegar.istoriya.ui.addstory.AddStoryActivity
 import com.tegar.istoriya.data.api.response.ListStoryItem
 import com.tegar.istoriya.databinding.ActivityHomeBinding
@@ -28,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setupToolBar()
         setupViews()
     }
 
@@ -37,16 +39,18 @@ class HomeActivity : AppCompatActivity() {
         observeStoryList()
     }
 
-    private fun setupViews() {
-        binding.btnSetting.setOnClickListener {
-            startActivity(Intent(this, SettingActivity::class.java))
-        }
+     private fun setupToolBar(){
+        val toolbar = binding.toolbar
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
+    }
 
+    private fun setupViews() {
         val layoutManager = LinearLayoutManager(this)
         binding.rvStory.layoutManager = layoutManager
-
         binding.btnAddStory.setOnClickListener {
-            startActivity(Intent(this, AddStoryActivity::class.java))
+            val intent = Intent(this, AddStoryActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -64,24 +68,38 @@ class HomeActivity : AppCompatActivity() {
                 if (result.data.listStory.isNotEmpty()) {
                     setStoryData(result.data.listStory)
                 } else {
-                    // Data kosong, tampilkan pesan atau lakukan tindakan lain
                     binding.tvNoData.visibility = View.VISIBLE
                 }
                 setStoryData(result.data.listStory)
             }
 
             is ResultState.Error -> {
-                Utils.showToast(this,"Error")
+                Utils.showToast(this, result.error)
                 Utils.showLoading(binding.progressBar,false)
             }
         }
     }
 
     private fun setStoryData(stories: List<ListStoryItem?>?) {
-        Log.d("story", stories?.size.toString())
         val adapter = StoriesAdapter()
         adapter.submitList(stories)
         binding.rvStory.adapter = adapter
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_setting -> {
+                val intent = Intent(this, SettingActivity::class.java)
+                startActivity(intent)
+                true
+
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 

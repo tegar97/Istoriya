@@ -1,36 +1,40 @@
 <resources>
     <string name="app_name">Istoriya</string>
-    <string name="welcome_text">Selamat datang Di istoria</string>
-    <string name="app_description">Istoriya adalah aplikasi untuk saling berbagi cerita menarik dalam sehari hari</string>
-    <string name="name_hint">Enter yours name</string>
-    <string name="email_hint">Enter yours Email</string>
-    <string name="password_hint">Enter yours password</string>
+    <string name="welcome_text">Welcome to Istoriya</string>
+    <string name="app_description">Istoriya is an app for sharing interesting daily stories</string>
+    <string name="name_hint">Enter your name</string>
+    <string name="email_hint">Enter your Email</string>
+    <string name="password_hint">Enter your password</string>
     <string name="logout_text">Logout</string>
     <string name="setting_text">Setting</string>
-    <string name="this_is_story_photo">This is story photo</string>
+    <string name="this_is_story_photo">This is a story photo</string>
 
-    <string name="camera_x">CameraX</string>
-    <string name="camera">Kamera</string>
-    <string name="gallery">Galeri</string>
-    <string name="upload">Unggah</string>
-    <string name="empty_image_warning">Silakan masukkan berkas gambar terlebih dahulu.</string>
-    <string name="image_description_hint">Enter description for yours image</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="upload">Upload</string>
+    <string name="empty_image_warning">Please insert an image file first.</string>
+    <string name="image_description_hint">Enter a description for your image</string>
 
-    <string name="error_message_email_taken">Email has been already taken</string>
-    <string name="appwidget_text">interesting story today </string>
+    <string name="error_message_email_taken">Email has already been taken</string>
+    <string name="appwidget_text">Interesting story today</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">Widget for see latest  story </string>
+    <string name="app_widget_description">Widget to see the latest story</string>
 
     <string name="empty_text">NO DATA</string>
-    <string name="email">Enter yours email</string>
+    <string name="email">Enter your email</string>
     <string name="btn_login_text">Login</string>
-    <string name="dont_have_account_text">Doesnt have account? Register now</string>
-    <string name="welcome_heading_text">Welcome back fellas</string>
-    <string name="login_illustration_content_description">This is image illustration when people make some content video for story</string>
-    <string name="btn_register_text">"Register "</string>
-    <string name="name">Enter yours name</string>
-    <string name="join_heading_text">Let\'s Join us to make amazing story</string>
-    <string name="loading_text">Loading ...</string>
-
+    <string name="dont_have_account_text">Dont have an account? Register now</string>
+    <string name="welcome_heading_text">Welcome back, fellas</string>
+    <string name="login_illustration_content_description">This is an image illustration when people create some content video for a story</string>
+    <string name="btn_register_text">Register</string>
+    <string name="name">Enter your name</string>
+    <string name="join_heading_text">Lets join us to make amazing stories</string>
+    <string name="loading_text">Loading...</string>
+    <string name="add_story">Add story</string>
+    <string name="created_by_text">Created By : %s </string>
+    <string name="change_languague_text">Changes Languague</string>
+    <string name="story_description_dummy">Yours Amazing story</string>
+    <string name="detail_story_createdAt_dummy">Uploaded on %1$s</string>
+    <string name="btn_share_text">Share this amazing story</string>
 
 </resources>

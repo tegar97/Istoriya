@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.activity.viewModels
+import com.tegar.istoriya.R
 import com.tegar.istoriya.data.api.ResultState
 import com.tegar.istoriya.data.api.request.RegistrationRequest
 import com.tegar.istoriya.data.api.response.RegisterResponse
@@ -20,22 +21,20 @@ class RegisterActivity : AppCompatActivity() {
     private val viewModel by viewModels<AuthViewModel> {
         ViewModelFactory.getInstance(this)
     }
-
-
-
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
-        binding.edtPassword.isPasswordInput = true
-        binding.edtEmail.isEmailInput = true
+        setForm()
         setContentView(binding.root)
-
-        binding.btnRegister.setOnClickListener { register() }
-        setButtonStatus()
+        setUpAction()
+        buttonListener()
     }
-    private fun setButtonStatus() {
+    private fun setForm() {
+        binding.edtEmail.isEmailInput = true
+        binding.edtPassword.isPasswordInput = true
+    }
+    private fun buttonListener() {
         setMyButtonEnable()
         binding.edtName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -65,6 +64,15 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun setUpAction(){
+        binding.btnRegister.setOnClickListener { register() }
+        binding.tvLogin.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+            finish()
+        }
+    }
+
     private fun setMyButtonEnable() {
         val email = binding.edtEmail.text?.toString().orEmpty()
         val password = binding.edtPassword.text?.toString().orEmpty()
@@ -88,14 +96,22 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun handleRegistrationResult(result: ResultState<RegisterResponse>, intent: Intent) {
         when (result) {
-            is ResultState.Loading -> Utils.showLoading(binding.progressIndicator,true)
+            is ResultState.Loading -> {
+                binding.btnRegister.isEnabled = false
+                binding.btnRegister.text = getString(R.string.loading_text)
+                Utils.showLoading(binding.progressIndicator,true)
+            }
             is ResultState.Success -> {
                 result.data.message?.let { Utils.showToast(this, it) }
                 Utils.showLoading(binding.progressIndicator,false)
+                binding.btnRegister.isEnabled = false
+                binding.btnRegister.text = getString(R.string.btn_register_text)
                 startActivity(intent)
             }
             is ResultState.Error -> {
                 Utils.showToast(this, result.error)
+                binding.btnRegister.isEnabled = false
+                binding.btnRegister.text = getString(R.string.btn_register_text)
                 Utils.showLoading(binding.progressIndicator,false)
             }
         }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="red">#FFff0000</color>
-    <color name="white">#FFFFFF</color>
     <color name="pink">#FFE33489</color>
-    <color name="primaryTextColor">#FF120B3E</color>
-    <color name="textColor">#FF000000</color>
+    <color name="primaryTextColor">#FFFFFFFF</color>
+    <color name="textColor">#FFFFFFFF</color>
     <color name="light_blue_50">#FFE1F5FE</color>
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="gray_40">#FFC4C4C4</color>
     <color name="gray_50">#FFA1A1A1</color>
+
 
 </resources>

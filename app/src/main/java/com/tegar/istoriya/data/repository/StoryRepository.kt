@@ -19,7 +19,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 import java.io.File
 
-class StoryRepository private constructor(private  val apiService: ApiService,private  val storyDao : StoryDao,  private val userPreference: UserPreference) {
+class StoryRepository private constructor(private  val apiService: ApiService,private  val storyDao : StoryDao) {
 
     fun getListStory() : LiveData<ResultState<StoryResponse>> = liveData{
         emit(ResultState.Loading)
@@ -91,10 +91,9 @@ class StoryRepository private constructor(private  val apiService: ApiService,pr
         fun getInstance(
             apiService: ApiService,
             storyDao: StoryDao,
-            userPreference: UserPreference,
         ): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService,storyDao,userPreference)
+                instance ?: StoryRepository(apiService,storyDao)
             }.also { instance = it }
     }
 }

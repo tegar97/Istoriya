@@ -1,8 +1,11 @@
 package com.tegar.istoriya.ui.main
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import com.tegar.istoriya.ui.home.HomeActivity
 import com.tegar.istoriya.ui.auth.RegisterActivity
@@ -21,9 +24,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setupClickListeners()
         observeSession()
+        playAnimation()
+
+    
+    }
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.imgLoginIllus, View.TRANSLATION_X, -10f, 10f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+        val appName = ObjectAnimator.ofFloat(binding.tvWelcome, View.ALPHA, 1f).setDuration(1000)
+        val desc = ObjectAnimator.ofFloat(binding.tvDescription,View.ALPHA,1f).setDuration(500)
+        val btnLogin = ObjectAnimator.ofFloat(binding.btnLogin,View.ALPHA,1f).setDuration(400)
+        val btnRegister = ObjectAnimator.ofFloat(binding.btnRegister,View.ALPHA,1f).setDuration(400)
+
+        AnimatorSet().apply {
+            playSequentially(appName,desc, btnLogin, btnRegister)
+            start()
+        }
     }
 
     private fun setupClickListeners() {

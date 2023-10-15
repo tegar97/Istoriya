@@ -11,7 +11,6 @@
         android:id="@+id/story_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -21,19 +20,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="TextView"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/app_name"
         app:layout_constraintEnd_toEndOf="@+id/story_image"
         app:layout_constraintStart_toStartOf="@+id/story_image"
         app:layout_constraintTop_toBottomOf="@+id/story_image" />
 
     <TextView
+        android:id="@+id/tv_createdAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/detail_story_createdAt_dummy"
+        app:layout_constraintStart_toStartOf="@+id/story_image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_story_title" />
+
+    <TextView
         android:id="@+id/tv_story_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="@+id/story_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_story_title" />
+        android:text="@string/story_description_dummy"
+        app:layout_constraintStart_toStartOf="@+id/tv_createdAt"
+        app:layout_constraintTop_toBottomOf="@+id/tv_createdAt" />
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -45,4 +56,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_share_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

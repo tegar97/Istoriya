@@ -3,7 +3,16 @@
     <style name="Base.Theme.Istoriya" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/pink</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+
+
+
     </style>
+
+    <style name="Theme.Istoriya.FloatingAccentButtonOverlay" >
+        <item name="colorAccent">@color/pink</item>
+    </style>
+
 
     <style name="Theme.Istoriya" parent="Base.Theme.Istoriya" />
 
