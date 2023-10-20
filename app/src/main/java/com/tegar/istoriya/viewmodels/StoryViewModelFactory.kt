@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tegar.istoriya.data.repository.StoryRepository
-import com.tegar.istoriya.data.repository.UserRepository
 import com.tegar.istoriya.di.Injection
 
 class StoryViewModelFactory(private  val repository: StoryRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -19,6 +18,9 @@ class StoryViewModelFactory(private  val repository: StoryRepository) : ViewMode
             }
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(LocationFeedViewModel::class.java) -> {
+                LocationFeedViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

@@ -2,8 +2,8 @@ package com.tegar.istoriya.ui.addstory
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,26 +11,33 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.tegar.istoriya.R
-
 import com.tegar.istoriya.data.api.ResultState
 import com.tegar.istoriya.data.api.response.StoryUploadResponse
-import com.tegar.istoriya.utilities.getImageUri
 import com.tegar.istoriya.databinding.ActivityAddStoryBinding
 import com.tegar.istoriya.utilities.Utils
+import com.tegar.istoriya.utilities.getImageUri
 import com.tegar.istoriya.utilities.reduceFileImage
 import com.tegar.istoriya.utilities.uriToFile
 import com.tegar.istoriya.viewmodels.AddStoryViewModel
 import com.tegar.istoriya.viewmodels.StoryViewModelFactory
-
+import com.google.android.gms.location.LocationServices
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class AddStoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddStoryBinding
     private val addStoryViewModel by viewModels<AddStoryViewModel> {
         StoryViewModelFactory.getInstance(this)
     }
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     private var currentImageUri: Uri? = null
+    private  var userLocation : Location? = null
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -41,6 +48,55 @@ class AddStoryActivity : AppCompatActivity() {
             }
         }
 
+    private val requestPermissionLocation =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                    getMyLastLocation()
+                }
+                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
+                    getMyLastLocation()
+                }
+                else -> {
+                    // No location access granted.
+                }
+            }
+        }
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun getMyLastLocation() {
+        if     (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        ){
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    userLocation  = location
+                    Log.d("My location" , location.toString())
+                } else {
+                    Toast.makeText(
+                        this@AddStoryActivity,
+                        "Location is not found. Try Again",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        } else {
+            requestPermissionLocation.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
+        }
+    }
+
     private fun allPermissionsGranted() =
         ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSION) == PackageManager.PERMISSION_GRANTED
 
@@ -48,14 +104,35 @@ class AddStoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+        }
+        binding.cbTrackLocation.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked && allPermissionsGranted()) {
+                // Your code when checkbox is checked and permissions are granted
+                Log.d("IS CHECKED", isChecked.toString())
+                getMyLastLocation()
+            } else {
+                // Your code when checkbox is unchecked or permissions are not granted
+                Log.d("IS CHECKED", isChecked.toString())
+            }
         }
 
         setupButtons()
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkAndSetCheckboxStatus()
+    }
+
+    private fun checkAndSetCheckboxStatus() {
+        if (!checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) && !checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            binding.cbTrackLocation.isChecked = false
+        }
+    }
     private fun setupButtons() {
         binding.galleryButton.setOnClickListener { startGallery() }
         binding.cameraButton.setOnClickListener { startCamera() }
@@ -83,13 +160,12 @@ class AddStoryActivity : AppCompatActivity() {
                 currentImageUri = uri
                 showImage()
             } else {
-                Log.d("Photo Picker", "No media selected")
+                Utils.showToast(this,"no media selected")
             }
         }
 
     private fun showImage() {
         currentImageUri?.let {
-            Log.d("Image URI", "showImage: $it")
             binding.previewImageView.setImageURI(it)
         }
     }
@@ -98,8 +174,21 @@ class AddStoryActivity : AppCompatActivity() {
         currentImageUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             val description = binding.edAddDescription.text.toString()
-            addStoryViewModel.addStory(imageFile, description).observe(this) { result ->
-                handleAddStoryResult(result)
+
+            // Collect story location information
+            var lat: RequestBody? = null
+            var lon: RequestBody? = null
+
+            if (userLocation != null) {
+                lat =
+                    userLocation?.latitude.toString().toRequestBody("text/plain".toMediaType())
+                lon =
+                    userLocation?.longitude.toString().toRequestBody("text/plain".toMediaType())
+            }
+
+                addStoryViewModel.addStory(imageFile, description,lat,lon).observe(this) { result ->
+                    handleAddStoryResult(result)
+
             }
         } ?:Utils.showToast(this, getString(R.string.empty_image_warning))
     }

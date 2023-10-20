@@ -1,7 +1,6 @@
 package com.tegar.istoriya.data.repository
 
 
-import android.util.Log
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
 import com.tegar.istoriya.data.api.ResultState
@@ -19,7 +18,7 @@ class UserRepository private constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
-    suspend fun saveSession(user: UserModel) {
+    private suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
     }
 
@@ -34,7 +33,6 @@ class UserRepository private constructor(
             val loginResponse = apiService.login(
                 requestBody
             )
-            loginResponse?.message?.let { Log.d("Response", it) }
             val emailData: String? = loginResponse.loginResult?.userId
             val nameData: String? = loginResponse.loginResult?.name
             val tokenData: String? = loginResponse.loginResult?.token

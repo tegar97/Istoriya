@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     
     }
     private fun playAnimation(){
-        ObjectAnimator.ofFloat(binding.imgLoginIllus, View.TRANSLATION_X, -10f, 10f).apply {
+        ObjectAnimator.ofFloat(binding.imgOnboardingIllustration, View.TRANSLATION_X, -10f, 10f).apply {
             duration = 6000
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE

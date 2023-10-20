@@ -11,9 +11,9 @@ import com.tegar.istoriya.data.api.response.StoryUploadResponse
 import com.tegar.istoriya.data.api.retrofit.ApiService
 import com.tegar.istoriya.data.local.entity.StoryEntity
 import com.tegar.istoriya.data.local.room.StoryDao
-import com.tegar.istoriya.data.pref.UserPreference
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
@@ -21,10 +21,10 @@ import java.io.File
 
 class StoryRepository private constructor(private  val apiService: ApiService,private  val storyDao : StoryDao) {
 
-    fun getListStory() : LiveData<ResultState<StoryResponse>> = liveData{
+    fun getListStory(location : Int = 0) : LiveData<ResultState<StoryResponse>> = liveData{
         emit(ResultState.Loading)
         try {
-           val storiesResponse =  apiService.getStories()
+           val storiesResponse =  apiService.getStories(location)
             val storyList = storiesResponse.listStory.map { story ->
                 StoryEntity(
                     story.id ?: "",
@@ -42,7 +42,6 @@ class StoryRepository private constructor(private  val apiService: ApiService,pr
         }catch (e : HttpException){
             e.response()?.errorBody()?.string()?.let { error ->
                 val errorBody = e.response()?.errorBody()?.string()
-                Log.d("Error" ,errorBody.toString())
                 val errorResponse = Gson().fromJson(errorBody, StoryResponse::class.java)
                 errorResponse.message?.let { ResultState.Error(it) }?.let { emit(it) }
             }
@@ -50,6 +49,7 @@ class StoryRepository private constructor(private  val apiService: ApiService,pr
 
 
     }
+
 
 
     fun getStory(storyId : String) : LiveData<ResultState<StoryDetailResponse>> = liveData {
@@ -65,9 +65,10 @@ class StoryRepository private constructor(private  val apiService: ApiService,pr
         }
     }
 
-    fun addStory(imageFile : File, description : String) = liveData {
+    fun addStory(imageFile : File, description : String, lat: RequestBody? = null,
+                 lon: RequestBody? = null) = liveData {
         emit(ResultState.Loading)
-        val requestBody = description.toRequestBody("text/plain".toMediaType())
+        val requestDescription = description.toRequestBody("text/plain".toMediaType())
         val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
         val multipartBody = MultipartBody.Part.createFormData(
             "photo",
@@ -75,7 +76,9 @@ class StoryRepository private constructor(private  val apiService: ApiService,pr
             requestImageFile
         )
         try {
-            val storyUploadResponse = apiService.uploadImage(multipartBody, requestBody)
+
+
+            val storyUploadResponse = apiService.uploadImage(multipartBody, requestDescription,lat,lon)
             emit(ResultState.Success(storyUploadResponse))
 
         } catch (e: HttpException) {

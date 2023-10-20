@@ -36,5 +36,10 @@
     <string name="story_description_dummy">Yours Amazing story</string>
     <string name="detail_story_createdAt_dummy">Uploaded on %1$s</string>
     <string name="btn_share_text">Share this amazing story</string>
+    <string name="this_is_story_widget">This is story widget</string>
+    <string name="image_illustration_register">this image illustration when people interact with each other</string>
+    <string name="title_activity_location_feed">LocationFeedActivity</string>
+    <string name="location_feed">Location Feed</string>
+    <string name="track_location_label">Add yours location</string>
 
 </resources>

@@ -36,5 +36,8 @@
     <string name="story_description_dummy">Dibuat oleh %s</string>
     <string name="detail_story_createdAt_dummy">Diupload Pada  %1$s</string>
     <string name="btn_share_text">Bagikana story keren ini</string>
-
+    <string name="this_is_story_widget">ini adalah story widget</string>
+    <string name="image_illustration_register">gambar ini ilustrasi ketika orang berinteraksi satu sama lain</string>
+    <string name="title_activity_location_feed">LocationFeedActivity</string>
+    <string name="location_feed">Cerita Lokasi</string>
 </resources>

@@ -4,8 +4,6 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
-
-
 tools:context=".ui.auth.RegisterActivity"
 android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,8 +22,8 @@ android:layout_height="match_parent">
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/img_login_illus"
-            android:contentDescription="@string/login_illustration_content_description"
+            android:id="@+id/img_regis_illus"
+            android:contentDescription="@string/image_illustration_register"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
             android:layout_marginTop="16dp"
@@ -47,7 +45,7 @@ android:layout_height="match_parent">
             android:textSize="20sp"
 
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_login_illus" />
+            app:layout_constraintTop_toBottomOf="@+id/img_regis_illus" />
 
         <TextView
             android:id="@+id/tv_name"

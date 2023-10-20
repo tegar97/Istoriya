@@ -37,14 +37,6 @@
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
-<!--    <Button-->
-<!--        android:id="@+id/btn_setting"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:text="@string/setting_text"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStory"
@@ -72,16 +64,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_add_story"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:text="@string/add_story"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.104"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/btn_setting"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/tv_no_data"

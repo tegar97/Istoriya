@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             is ResultState.Success -> {
-                result.data.message?.let { Utils.showToast(this, it) }
+                result.data.message.let { Utils.showToast(this, it) }
                 Utils.showLoading(binding.progressIndicator, false)
                 binding.btnLogin.isEnabled = true
                 binding.btnLogin.text = getString(R.string.btn_login_text)

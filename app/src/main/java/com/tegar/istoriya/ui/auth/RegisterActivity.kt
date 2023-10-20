@@ -102,7 +102,7 @@ class RegisterActivity : AppCompatActivity() {
                 Utils.showLoading(binding.progressIndicator,true)
             }
             is ResultState.Success -> {
-                result.data.message?.let { Utils.showToast(this, it) }
+                result.data.message.let { Utils.showToast(this, it) }
                 Utils.showLoading(binding.progressIndicator,false)
                 binding.btnRegister.isEnabled = false
                 binding.btnRegister.text = getString(R.string.btn_register_text)

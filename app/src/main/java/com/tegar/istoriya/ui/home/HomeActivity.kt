@@ -3,11 +3,13 @@ package com.tegar.istoriya.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tegar.istoriya.LocationFeedActivity
 import com.tegar.istoriya.R
 import com.tegar.istoriya.ui.addstory.AddStoryActivity
 import com.tegar.istoriya.data.api.response.ListStoryItem
@@ -66,6 +68,7 @@ class HomeActivity : AppCompatActivity() {
             is ResultState.Success -> {
                 Utils.showLoading(binding.progressBar,false)
                 if (result.data.listStory.isNotEmpty()) {
+                    Log.d("List story" , result.data.listStory.toString())
                     setStoryData(result.data.listStory)
                 } else {
                     binding.tvNoData.visibility = View.VISIBLE
@@ -97,6 +100,11 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
 
+            }
+            R.id.action_maps -> {
+                val intent = Intent(this, LocationFeedActivity::class.java)
+                startActivity(intent)
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }
