@@ -31,7 +31,6 @@ data class ListStoryItem(
 	@field:SerializedName("lon")
 	val lon: Double? = null,
 
-
 	@field:SerializedName("id")
 	val id: String? = null,
 

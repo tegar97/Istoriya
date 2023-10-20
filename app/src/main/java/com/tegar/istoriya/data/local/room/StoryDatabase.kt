@@ -4,16 +4,18 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.tegar.istoriya.data.local.entity.RemoteKeys
 import com.tegar.istoriya.data.local.entity.StoryEntity
 
 @Database(
-    entities = [StoryEntity::class],
-    version = 1,
+    entities = [StoryEntity::class, RemoteKeys::class],
+    version = 2,
     exportSchema = false
 )
 abstract class StoryDatabase : RoomDatabase() {
 
     abstract fun StoryDao(): StoryDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile
@@ -23,7 +25,8 @@ abstract class StoryDatabase : RoomDatabase() {
                 instance ?: Room.databaseBuilder(
                     context.applicationContext,
                     StoryDatabase::class.java, "Story.db"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
             }
     }
 }

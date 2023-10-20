@@ -41,5 +41,6 @@
     <string name="title_activity_location_feed">LocationFeedActivity</string>
     <string name="location_feed">Location Feed</string>
     <string name="track_location_label">Add yours location</string>
+    <string name="try_again">Try again</string>
 
 </resources>

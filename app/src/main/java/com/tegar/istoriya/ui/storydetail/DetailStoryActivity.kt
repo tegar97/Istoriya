@@ -12,6 +12,7 @@ import com.tegar.istoriya.R
 import com.tegar.istoriya.data.api.ResultState
 import com.tegar.istoriya.data.api.response.Story
 import com.tegar.istoriya.data.api.response.StoryDetailResponse
+import com.tegar.istoriya.data.local.entity.StoryEntity
 import com.tegar.istoriya.databinding.ActivityDetailStoryBinding
 import com.tegar.istoriya.utilities.withDateFormat
 import com.tegar.istoriya.viewmodels.DetailStoryViewModel
@@ -27,14 +28,16 @@ class DetailStoryActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_STORY_ID: String = "extra_story_id"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         extractStoryId()
+        Log.d("Story id " ,storyId )
+
         observeStoryDetail()
         setAction()
 
@@ -70,34 +73,34 @@ class DetailStoryActivity : AppCompatActivity() {
     }
 
     private fun observeStoryDetail() {
-        detailViewModel.getStoryDetail(storyId).observe(this) { result ->
-            handleStoryDetailResult(result)
+        detailViewModel.getStoryDetail(storyId).observe(this){story ->
+            setDetailStory(story)
         }
     }
 
-    private fun handleStoryDetailResult(result: ResultState<StoryDetailResponse?>) {
-        when (result) {
-            is ResultState.Loading -> {
-                showLoading(true)
-            }
+//    private fun handleStoryDetailResult(result: ResultState<StoryDetailResponse?>) {
+//        when (result) {
+//            is ResultState.Loading -> {
+//                showLoading(true)
+//            }
+//
+//            is ResultState.Success -> {
+//                showLoading(false)
+//                setDetailStory(result.data?.story)
+//            }
+//
+//            is ResultState.Error -> {
+//                showToast(result.error)
+//                showLoading(false)
+//            }
+//        }
+//    }
 
-            is ResultState.Success -> {
-                showLoading(false)
-                setDetailStory(result.data?.story)
-            }
-
-            is ResultState.Error -> {
-                showToast(result.error)
-                showLoading(false)
-            }
-        }
-    }
-
-    private fun setDetailStory(story: Story?) {
+    private fun setDetailStory(story: StoryEntity?) {
         Log.d("FROM Detail story", story?.name.toString())
         binding.tvStoryTitle.text =  getString(R.string.created_by_text,story?.name)
         binding.tvCreatedAt.text = getString(R.string.detail_story_createdAt_dummy,story?.createdAt?.withDateFormat())
-        binding.tvStoryDescription.text = story?.description
+        binding.tvStoryDescription.text = story?.desc
         Glide.with(binding.root.context).load(story?.photoUrl).into(binding.storyImage)
     }
 

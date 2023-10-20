@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tegar.istoriya.LocationFeedActivity
 import com.tegar.istoriya.R
+import com.tegar.istoriya.adapters.LoadingStateAdapter
 import com.tegar.istoriya.ui.addstory.AddStoryActivity
 import com.tegar.istoriya.data.api.response.ListStoryItem
 import com.tegar.istoriya.databinding.ActivityHomeBinding
@@ -38,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        observeStoryList()
+        setStoryData()
     }
 
      private fun setupToolBar(){
@@ -56,38 +57,48 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeStoryList() {
-        homeViewModel.getStories().observe(this) { result ->
-            handleStoryResult(result)
-        }
-    }
+//    private fun observeStoryList() {
+//        homeViewModel.getStories().observe(this) { result ->
+//            handleStoryResult(result)
+//        }
+//    }
 
-    private fun handleStoryResult(result: ResultState<StoryResponse>) {
-        when (result) {
-            is ResultState.Loading ->  Utils.showLoading(binding.progressBar, true)
-            is ResultState.Success -> {
-                Utils.showLoading(binding.progressBar,false)
-                if (result.data.listStory.isNotEmpty()) {
-                    Log.d("List story" , result.data.listStory.toString())
-                    setStoryData(result.data.listStory)
-                } else {
-                    binding.tvNoData.visibility = View.VISIBLE
-                }
-                setStoryData(result.data.listStory)
-            }
+//    private fun handleStoryResult(result: ResultState<StoryResponse>) {
+//        when (result) {
+//            is ResultState.Loading ->  Utils.showLoading(binding.progressBar, true)
+//            is ResultState.Success -> {
+//                Utils.showLoading(binding.progressBar,false)
+//                if (result.data.listStory.isNotEmpty()) {
+//                    Log.d("List story" , result.data.listStory.toString())
+//                    setStoryData(result.data.listStory)
+//                } else {
+//                    binding.tvNoData.visibility = View.VISIBLE
+//                }
+//                setStoryData(result.data.listStory)
+//            }
+//
+//            is ResultState.Error -> {
+//                Utils.showToast(this, result.error)
+//                Utils.showLoading(binding.progressBar,false)
+//            }
+//        }
+//    }
 
-            is ResultState.Error -> {
-                Utils.showToast(this, result.error)
-                Utils.showLoading(binding.progressBar,false)
-            }
-        }
-    }
-
-    private fun setStoryData(stories: List<ListStoryItem?>?) {
+    private fun setStoryData() {
         val adapter = StoriesAdapter()
-        adapter.submitList(stories)
-        binding.rvStory.adapter = adapter
+        homeViewModel.getStories().observe(this,{it ->
+            adapter.submitData(lifecycle,it)
+        })
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter{
+                adapter.retry()
+            }
+        )
+
+
     }
+
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)

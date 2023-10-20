@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,31 +16,31 @@ import com.tegar.istoriya.databinding.StoryCardBinding
 import com.tegar.istoriya.ui.storydetail.DetailStoryActivity
 import com.tegar.istoriya.utilities.withDateFormat
 
-class StoriesAdapter : ListAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(DIFF_CALLBACK) {
+class StoriesAdapter : PagingDataAdapter<ListStoryItem, StoriesAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = StoryCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val users = getItem(position)
-        holder.bind(users)
+        val stories = getItem(position)
+        if (stories != null) {
+            holder.bind(stories)
+        }
     }
 
 
     class MyViewHolder(private val binding: StoryCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(story: ListStoryItem) {
-
             binding.tvName.text = story.name
             binding.tvCreatedAt.text =   story.createdAt?.withDateFormat()
             binding.tvDescription.text  = story.description
             Glide.with(binding.root.context).load(story.photoUrl).into(binding.imgPhoto)
-           
             binding.root.setOnClickListener {
-
                 val intent = Intent(binding.root.context, DetailStoryActivity::class.java)
                 intent.putExtra(DetailStoryActivity.EXTRA_STORY_ID,story.id)
+
                 val optionsCompat: ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(
                         itemView.context as Activity,
