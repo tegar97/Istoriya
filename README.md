@@ -1,4 +1,5 @@
 # Istoriya
+![App overview](https://github.com/tegar97/Istoriya/blob/master/screenshot/istoriya_cover.jpg?raw=true)
 
 ## WARNING
 
@@ -43,3 +44,54 @@
 - Retrofit and other 
 
 
+
+
+Eats App is a food ordering application from various restaurants built with Kotlin and Compose.
+## Screen
+
+There are 3 main screens:
+- Home Screen
+- Detail Screen
+- Explore Screen / Search Screen 
+- Will Update soon
+   - Splash screen
+    - Home screen
+    - Otp screen
+  - Order Detail screen
+
+## Features
+
+
+- Order multiple dishes from one restaurant
+- Search for restaurants and food
+- Implement MVVM Architecture
+- Implement Repository
+- UI testing
+- How to create bottom bar
+- Navigation between screen
+
+
+## Tech
+
+- Kotlin
+- Compose
+- 
+## Screenshot
+
+
+
+<table class="center" >
+   <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/splash_screen.jpg?raw=true" alt="Splash screen" width="200"/></td>
+   <td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/onboarding_screen.jpg?raw=true" alt="Onboarding screen" width="200"/></td>
+   <td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/login_screen.jpg?raw=true" alt="Detail screen" width="200"/></td>
+<td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/register_Screen.jpg?raw=true" alt="Register  screen" width="200"/></td>
+ <td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/register_Screen.jpg?raw=true" alt="Onboarding screen" width="200"/></td>
+
+
+</table>
+<table class="center" >
+   <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/home_screen.jpg?raw=true" alt="Home screen" width="200"/</td>
+   <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/detail_screen.jpg?raw=true" alt="Detail screen" width="200"/</td>
+   <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/location_screen.jpg?raw=true" alt="Location screen" width="200"/</td>
+   <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/setting_screen.jpg?raw=true" alt="Location screen" width="200"/</td>
+</table>
