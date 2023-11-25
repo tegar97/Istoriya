@@ -84,7 +84,7 @@ There are 3 main screens:
    <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/splash_screen.jpg?raw=true" alt="Splash screen" width="200"/></td>
    <td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/onboarding_screen.jpg?raw=true" alt="Onboarding screen" width="200"/></td>
    <td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/login_screen.jpg?raw=true" alt="Detail screen" width="200"/></td>
-<td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/register_Screen.jpg?raw=true" alt="Register  screen" width="200"/></td>
+
  <td><img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/register_Screen.jpg?raw=true" alt="Onboarding screen" width="200"/></td>
 
 
@@ -95,3 +95,13 @@ There are 3 main screens:
    <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/location_screen.jpg?raw=true" alt="Location screen" width="200"/</td>
    <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/setting_screen.jpg?raw=true" alt="Location screen" width="200"/</td>
 </table>
+
+## Rating Submission
+* 5-star is the highest rating
+<table class="center" >
+   <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/submission_1.png?raw=true" alt="Submission 1  " width="400"/</td>
+   <td> <img src="https://github.com/tegar97/Istoriya/blob/master/screenshot/submission_2.png?raw=true" alt="Submisison 2  " width="400"/</td>
+
+</table>
+
+
