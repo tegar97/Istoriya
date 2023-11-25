@@ -59,9 +59,7 @@ class AddStoryActivity : AppCompatActivity() {
                 permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
                     getMyLastLocation()
                 }
-                else -> {
-                    // No location access granted.
-                }
+
             }
         }
     private fun checkPermission(permission: String): Boolean {
@@ -109,13 +107,13 @@ class AddStoryActivity : AppCompatActivity() {
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
+
+        // if checked get user loocatioon
         binding.cbTrackLocation.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked && allPermissionsGranted()) {
-                // Your code when checkbox is checked and permissions are granted
                 Log.d("IS CHECKED", isChecked.toString())
                 getMyLastLocation()
             } else {
-                // Your code when checkbox is unchecked or permissions are not granted
                 Log.d("IS CHECKED", isChecked.toString())
             }
         }

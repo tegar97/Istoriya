@@ -11,10 +11,11 @@ import com.tegar.istoriya.data.api.response.RegisterResponse
 import com.tegar.istoriya.data.api.retrofit.ApiService
 import com.tegar.istoriya.data.pref.UserModel
 import com.tegar.istoriya.data.pref.UserPreference
+import com.tegar.istoriya.utilities.wrapEspressoIdlingResource
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 
-class UserRepository private constructor(
+class UserRepository  constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ) {
@@ -28,29 +29,32 @@ class UserRepository private constructor(
 
     fun login(email: String, password: String) = liveData {
         emit(ResultState.Loading)
-        val requestBody = LoginRequest(email, password)
-        try {
-            val loginResponse = apiService.login(
-                requestBody
-            )
-            val emailData: String? = loginResponse.loginResult?.userId
-            val nameData: String? = loginResponse.loginResult?.name
-            val tokenData: String? = loginResponse.loginResult?.token
-            if (loginResponse.loginResult != null && emailData != null && nameData != null && tokenData != null) {
-                val userData = UserModel(
-                    emailData,
-                    nameData,
-                    tokenData
+        wrapEspressoIdlingResource {
+            val requestBody = LoginRequest(email, password)
+            try {
+                val loginResponse = apiService.login(
+                    requestBody
                 )
-                saveSession(userData)
-                emit(ResultState.Success(loginResponse))
+                val emailData: String? = loginResponse.loginResult?.userId
+                val nameData: String? = loginResponse.loginResult?.name
+                val tokenData: String? = loginResponse.loginResult?.token
+                if (loginResponse.loginResult != null && emailData != null && nameData != null && tokenData != null) {
+                    val userData = UserModel(
+                        emailData,
+                        nameData,
+                        tokenData
+                    )
+                    saveSession(userData)
+                    emit(ResultState.Success(loginResponse))
+                }
+
+            } catch (e: HttpException) {
+
+                val errorBody = e.response()?.errorBody()?.string()
+                val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
+                emit(ResultState.Error(errorResponse.message))
+
             }
-
-        } catch (e: HttpException) {
-
-            val errorBody = e.response()?.errorBody()?.string()
-            val errorResponse = Gson().fromJson(errorBody, LoginResponse::class.java)
-            emit(ResultState.Error(errorResponse.message))
 
         }
 
@@ -74,8 +78,12 @@ class UserRepository private constructor(
 
     }
 
+
     suspend fun logout() {
-        userPreference.logout()
+        wrapEspressoIdlingResource {
+            userPreference.logout()
+        }
+
     }
 
     companion object {

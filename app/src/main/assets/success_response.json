@@ -1,0 +1,9 @@
+{
+  "error": false,
+  "message": "success",
+  "loginResult": {
+    "userId": "user-1VKDblyJZZfPiOnL",
+    "name": "tegar@gmail.com",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLTFWS0RibHlKWlpmUGlPbkwiLCJpYXQiOjE2OTc5NTAwOTB9.O0KYtJjKFrVc3750cHhpslLolYnqAEgjPKX9hIkF2xc"
+  }
+}

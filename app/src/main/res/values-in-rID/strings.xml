@@ -40,4 +40,9 @@
     <string name="image_illustration_register">gambar ini ilustrasi ketika orang berinteraksi satu sama lain</string>
     <string name="title_activity_location_feed">LocationFeedActivity</string>
     <string name="location_feed">Cerita Lokasi</string>
+
+    <string name="track_location_label">Add yours location</string>
+    <string name="try_again">Try again</string>
+    <string name="password_min_length_error">Password tidak boleh kurang dari 8 karakter</string>
+    <string name="email_not_valid_error">Invalid email format</string>
 </resources>

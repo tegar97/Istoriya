@@ -8,7 +8,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.tegar.istoriya.data.api.response.ListStoryItem
 import com.tegar.istoriya.data.local.entity.StoryEntity
-import retrofit2.Call
 
 @Dao
 interface StoryDao {

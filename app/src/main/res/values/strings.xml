@@ -42,5 +42,8 @@
     <string name="location_feed">Location Feed</string>
     <string name="track_location_label">Add yours location</string>
     <string name="try_again">Try again</string>
+    <string name="password_min_length_error">Password must not be less than 8 characters</string>
+    <string name="email_not_valid_error">Invalid email format</string>
+
 
 </resources>

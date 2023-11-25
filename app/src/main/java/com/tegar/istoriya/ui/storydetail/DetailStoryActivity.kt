@@ -26,10 +26,7 @@ class DetailStoryActivity : AppCompatActivity() {
         StoryViewModelFactory.getInstance(this)
     }
 
-    companion object {
-        const val EXTRA_STORY_ID: String = "extra_story_id"
 
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,23 +75,7 @@ class DetailStoryActivity : AppCompatActivity() {
         }
     }
 
-//    private fun handleStoryDetailResult(result: ResultState<StoryDetailResponse?>) {
-//        when (result) {
-//            is ResultState.Loading -> {
-//                showLoading(true)
-//            }
-//
-//            is ResultState.Success -> {
-//                showLoading(false)
-//                setDetailStory(result.data?.story)
-//            }
-//
-//            is ResultState.Error -> {
-//                showToast(result.error)
-//                showLoading(false)
-//            }
-//        }
-//    }
+
 
     private fun setDetailStory(story: StoryEntity?) {
         Log.d("FROM Detail story", story?.name.toString())
@@ -104,12 +85,9 @@ class DetailStoryActivity : AppCompatActivity() {
         Glide.with(binding.root.context).load(story?.photoUrl).into(binding.storyImage)
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
+    companion object {
+        const val EXTRA_STORY_ID: String = "extra_story_id"
 
+    }
 }

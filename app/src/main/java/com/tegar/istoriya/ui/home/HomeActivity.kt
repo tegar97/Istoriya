@@ -57,33 +57,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-//    private fun observeStoryList() {
-//        homeViewModel.getStories().observe(this) { result ->
-//            handleStoryResult(result)
-//        }
-//    }
-
-//    private fun handleStoryResult(result: ResultState<StoryResponse>) {
-//        when (result) {
-//            is ResultState.Loading ->  Utils.showLoading(binding.progressBar, true)
-//            is ResultState.Success -> {
-//                Utils.showLoading(binding.progressBar,false)
-//                if (result.data.listStory.isNotEmpty()) {
-//                    Log.d("List story" , result.data.listStory.toString())
-//                    setStoryData(result.data.listStory)
-//                } else {
-//                    binding.tvNoData.visibility = View.VISIBLE
-//                }
-//                setStoryData(result.data.listStory)
-//            }
-//
-//            is ResultState.Error -> {
-//                Utils.showToast(this, result.error)
-//                Utils.showLoading(binding.progressBar,false)
-//            }
-//        }
-//    }
-
     private fun setStoryData() {
         val adapter = StoriesAdapter()
         homeViewModel.getStories().observe(this,{it ->

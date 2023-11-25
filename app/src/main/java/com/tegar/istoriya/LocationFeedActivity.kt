@@ -41,7 +41,6 @@ class LocationFeedActivity : AppCompatActivity(), OnMapReadyCallback,
         binding = ActivityLocationFeedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -59,6 +58,10 @@ class LocationFeedActivity : AppCompatActivity(), OnMapReadyCallback,
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         binding.storyBox.visibility = View.GONE
+
+        val indonesiaLatLng = LatLng(-2.5489, 118.0149)
+        val zoomLevel = 1.0f
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(indonesiaLatLng, zoomLevel))
         observeStoryList()
         setMapStyle()
 
@@ -94,12 +97,13 @@ class LocationFeedActivity : AppCompatActivity(), OnMapReadyCallback,
                 Utils.showLoading(binding.progressBar,false)
                 Utils.showToast(this, result.error)
             }
+
+
         }
     }
 
     private fun setStoryData(stories: List<ListStoryItem?>?) {
         stories?.forEach { story ->
-            Log.d("Stories location ", story?.lat.toString())
             if (story != null) {
                 val latLng = story.lat?.let { story.lon?.let { it1 -> LatLng(it, it1) } }
                 latLng?.let {

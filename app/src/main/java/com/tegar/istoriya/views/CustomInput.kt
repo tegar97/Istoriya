@@ -46,9 +46,9 @@ class CustomInput: TextInputEditText, View.OnTouchListener {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (isPasswordInput && s.toString().length < 8) {
-                    setError("Password tidak boleh kurang dari 8 karakter", null)
+                    setError(context.getString(R.string.password_min_length_error), null)
                 }else if(isEmailInput && !isEmailValid(s.toString())){
-                    setError("Format email tidak valid", null)
+                    setError(context.getString(R.string.email_not_valid_error), null)
                 }
                 else {
                     error = null

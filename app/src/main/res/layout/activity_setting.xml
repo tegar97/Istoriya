@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:id="@+id/setting_activity"
     tools:context=".ui.setting.SettingActivity">
 
     <com.google.android.material.button.MaterialButton

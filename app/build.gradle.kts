@@ -9,7 +9,10 @@ plugins {
 android {
     namespace = "com.tegar.istoriya"
     compileSdk = 34
-
+    testOptions {
+        unitTests.isReturnDefaultValues  = true
+        animationsDisabled = true
+    }
     defaultConfig {
         applicationId = "com.tegar.istoriya"
         minSdk = 24
@@ -19,6 +22,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://story-api.dicoding.dev/v1/\"")
+        testInstrumentationRunner="androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -40,6 +44,7 @@ android {
         freeCompilerArgs = freeCompilerArgs + listOf("-Xopt-in=kotlin.RequiresOptIn")
 
     }
+
 
     buildFeatures{
         viewBinding=true
@@ -68,11 +73,28 @@ dependencies {
     implementation("androidx.room:room-runtime:2.5.2")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation("androidx.test.espresso:espresso-idling-resource:3.4.0")
+
     ksp("androidx.room:room-compiler:2.5.2")
 
     implementation("androidx.room:room-ktx:2.5.2")
 
     testImplementation("junit:junit:4.13.2")
+
+    testImplementation("androidx.arch.core:core-testing:2.2.0") // InstantTaskExecutorRule
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4") //TestDispatcher
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")//IntentsTestRule
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:3.0.2")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0") //InstantTaskExecutorRule
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4") //TestDispatcher
+    //mock web server
+    androidTestImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    androidTestImplementation("com.squareup.okhttp3:okhttp-tls:4.9.3")
+
 }
